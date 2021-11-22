@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import HomePage from "./HomePage";
+import JoblyApi from "./api"
 import NavBar from "./NavBar";
 import CompaniesList from "./CompaniesList";
 import Company from "./Company";
@@ -11,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import UserProfile from "./UserProfile"
 
 
-function AppRoutes() {
+function AppRoutes({register, login, logout}) {
   
     return (
         <BrowserRouter>
@@ -22,8 +23,8 @@ function AppRoutes() {
             <Route exact path="/companies" element={<CompaniesList />}/>
             <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company />}/>
             <Route path="/jobs" element={<JobsList />}/>
-            <Route exact path="/login" element={<LoginForm/>}/>
-            <Route path="/signup" element={<RegistrationForm/>}/>
+            <Route exact path="/login" element={<LoginForm login={login}/>}/>
+            <Route path="/register" element={<RegistrationForm register={register}/>}/>
             <Route path="/profile" element={<UserProfile/>}/>
             <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>
         </Routes>

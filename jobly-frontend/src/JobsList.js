@@ -30,9 +30,7 @@ function JobsList() {
     }, []);
 
     async function searchJobs(title) {
-        console.log(title, "title in search")
         let res = await JoblyApi.getJobsQuery(title);
-        console.log(res, "this is jobs inside searchjobs")
         setJobs(res);
       }
   

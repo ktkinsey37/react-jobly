@@ -39,9 +39,7 @@ class JoblyApi {
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
-    console.log(handle, "is the api calling?")
     let res = await this.request(`companies/${handle}`);
-    console.log(res, "THIS IS RES IN THE API CALL")
     return res.company;
   }
 
@@ -51,7 +49,6 @@ class JoblyApi {
   }
 
   static async getCompaniesQuery(term){
-    console.log(term, "this is search term")
     let res = await this.request("companies", term)
     return res.companies;
   }
@@ -62,9 +59,20 @@ class JoblyApi {
   }
 
   static async getJobsQuery(term){
-    console.log(term, "this is term in getjobsquery")
     let res = await this.request("jobs", term)
     return res.jobs;
+  }
+
+  static async registerUser(formData){
+    let res = await this.request("auth/register", formData, "post")
+    let returnObj = {username: `${formData.username}`, token: res.token}
+    return returnObj
+  }
+
+  static async loginUser(formData){
+    let res = await this.request("auth/token", formData, "post")
+    let returnObj = {username: `${formData.username}`, token: res.token}
+    return returnObj
   }
 
   // obviously, you'll add a lot here ...
