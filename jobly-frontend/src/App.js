@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import JoblyApi from "./api"
 import AppRoutes from './AppRoutes';
 import React, { useState, useEffect, createContext } from "react";
+import UserContext from './UserContext';
 // import { update } from '../../backend/models/user';
 
 
@@ -12,7 +13,21 @@ function App() {
   const [companies, setCompanies] = useState([]);
   // const [jobs, setJob] = useState([]);
 
-  const Context = createContext()
+  // const Context = createContext()
+  let user = {}
+  user.username = localStorage.getItem('currUser');
+  user.token = localStorage.getItem('currToken');
+
+  console.log(user, "this is user as app renders the first time")
+
+  componentDidMount(){
+      if (user.username != undefined && user.token != undefined){
+    setToken(user.token)
+    setCurrUser(user.username)
+  }
+  }
+
+
 
 
   // Gets the drinks and snacks on load and sets them in state
@@ -38,34 +53,40 @@ function App() {
   }
 
   async function register(userData) {
-    console.log(userData, "user in App register func")
     let user = await JoblyApi.registerUser(userData);
-    console.log(user, "user after reg")
-    console.log(user.username, user.token, "user.username and user.token before setState runs")
     setCurrUser(user.username)
     setToken(user.token)
     console.log(currUser, currToken, "curruser and token in state")
+    localStorage.setItem('currUser', user.username);
+    localStorage.setItem('currToken', user.token);
   }
 
 async function login(userData) {
-    console.log(userData, "user in login func")
     let user = await JoblyApi.loginUser(userData);
     setCurrUser(user.username)
     setToken(user.token)
     console.log(currUser, currToken)
     console.log(user, "user after login")
+    localStorage.setItem('currUser', user.username);
+    localStorage.setItem('currToken', user.token);
   }
 
 async function logout(){
-
+  setCurrUser(undefined)
+  setToken(undefined)
+  localStorage.setItem('currUser', undefined);
+  localStorage.setItem('currToken', undefined);
 }
 
   return (
+    <UserContext.Provider value = {{username: currUser, token: currToken}}>
     <div className="App">
       <header className="App-header">
+
           <AppRoutes register={register} login={login} logout={logout} />
       </header>
     </div>
+    </UserContext.Provider>
   );
 }
 

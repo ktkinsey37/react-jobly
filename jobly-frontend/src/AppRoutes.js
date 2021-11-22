@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { BrowserRouter } from "react-router-dom";
 import HomePage from "./HomePage";
 import JoblyApi from "./api"
@@ -10,9 +10,29 @@ import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 import { Route, Routes } from "react-router-dom";
 import UserProfile from "./UserProfile"
+import UserContext from "./UserContext";
 
 
 function AppRoutes({register, login, logout}) {
+
+    const user = useContext(UserContext)
+    console.log(user, "this is user in approutes.js")
+
+    if (user.username == undefined && user.token == undefined){
+        return (
+            <BrowserRouter>
+            <NavBar />
+            <main>
+            <Routes>
+                <Route exact path="/" element={<Company />}/>
+                <Route exact path="/login" element={<LoginForm login={login}/>}/>
+                <Route path="/register" element={<RegistrationForm register={register}/>}/>
+                <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>
+            </Routes>
+            </main>
+            </BrowserRouter>
+        );
+    }
   
     return (
         <BrowserRouter>
