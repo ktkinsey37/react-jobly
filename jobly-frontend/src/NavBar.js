@@ -55,6 +55,9 @@ function NavBar() {
           <NavItem>
             <NavLink to="/profile">Profile</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink to="/logout">Logout</NavLink>
+          </NavItem>
         </Nav>
       </Navbar>
     </div>

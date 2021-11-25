@@ -3,29 +3,16 @@ import JoblyApi from "./api"
 import AppRoutes from './AppRoutes';
 import React, { useState, useEffect, createContext } from "react";
 import UserContext from './UserContext';
+import useLocalStorage from './hooks/useLocalStorage';
 // import { update } from '../../backend/models/user';
 
 
 function App() {
-  const [currUser, setCurrUser] = useState();
-  const [currToken, setToken] = useState();
+  const [currUser, setCurrUser] = useLocalStorage("currUser", undefined);
+  const [currToken, setToken] = useLocalStorage("currToken", undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
-  // const [jobs, setJob] = useState([]);
 
-  // const Context = createContext()
-  let user = {}
-  user.username = localStorage.getItem('currUser');
-  user.token = localStorage.getItem('currToken');
-
-  console.log(user, "this is user as app renders the first time")
-
-  componentDidMount(){
-      if (user.username != undefined && user.token != undefined){
-    setToken(user.token)
-    setCurrUser(user.username)
-  }
-  }
 
 
 
@@ -40,14 +27,6 @@ function App() {
     getCompanies()
   }, []);
 
-  useEffect(() => {
-    function updateUser(){
-      console.log(currUser, currToken, "curruser, currtoken in useeffect updateuser()")
-      setIsLoading(false);
-    }
-    updateUser()
-  }, [currToken, currUser])
-
   if (isLoading) {
     return <p>Loading &hellip;</p>;
   }
@@ -56,26 +35,23 @@ function App() {
     let user = await JoblyApi.registerUser(userData);
     setCurrUser(user.username)
     setToken(user.token)
-    console.log(currUser, currToken, "curruser and token in state")
-    localStorage.setItem('currUser', user.username);
-    localStorage.setItem('currToken', user.token);
   }
 
 async function login(userData) {
     let user = await JoblyApi.loginUser(userData);
     setCurrUser(user.username)
     setToken(user.token)
-    console.log(currUser, currToken)
-    console.log(user, "user after login")
-    localStorage.setItem('currUser', user.username);
-    localStorage.setItem('currToken', user.token);
   }
 
 async function logout(){
   setCurrUser(undefined)
   setToken(undefined)
-  localStorage.setItem('currUser', undefined);
-  localStorage.setItem('currToken', undefined);
+  localStorage.clear()
+}
+
+async function editProfile(userData){
+  let user = await JoblyApi.editUser(userData)
+  console.log(user, "this is user in app editprofile function")
 }
 
   return (
@@ -83,7 +59,7 @@ async function logout(){
     <div className="App">
       <header className="App-header">
 
-          <AppRoutes register={register} login={login} logout={logout} />
+          <AppRoutes register={register} login={login} logout={logout} editProfile={editProfile} />
       </header>
     </div>
     </UserContext.Provider>

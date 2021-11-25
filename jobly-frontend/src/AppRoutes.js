@@ -7,13 +7,14 @@ import CompaniesList from "./CompaniesList";
 import Company from "./Company";
 import JobsList from "./JobsList";
 import LoginForm from "./LoginForm";
+import Logout from "./Logout";
 import RegistrationForm from "./RegistrationForm";
 import { Route, Routes } from "react-router-dom";
 import UserProfile from "./UserProfile"
 import UserContext from "./UserContext";
 
 
-function AppRoutes({register, login, logout}) {
+function AppRoutes({register, login, logout, editProfile}) {
 
     const user = useContext(UserContext)
     console.log(user, "this is user in approutes.js")
@@ -43,9 +44,8 @@ function AppRoutes({register, login, logout}) {
             <Route exact path="/companies" element={<CompaniesList />}/>
             <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company />}/>
             <Route path="/jobs" element={<JobsList />}/>
-            <Route exact path="/login" element={<LoginForm login={login}/>}/>
-            <Route path="/register" element={<RegistrationForm register={register}/>}/>
-            <Route path="/profile" element={<UserProfile/>}/>
+            <Route exact path="/logout" element={<Logout logout={logout}/>}/>
+            <Route path="/profile" element={<UserProfile user={user} editProfile={editProfile}/>}/>
             <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>
         </Routes>
         </main>

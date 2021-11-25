@@ -65,22 +65,39 @@ class JoblyApi {
 
   static async registerUser(formData){
     let res = await this.request("auth/register", formData, "post")
+    this.token = res.token
     let returnObj = {username: `${formData.username}`, token: res.token}
     return returnObj
   }
 
   static async loginUser(formData){
     let res = await this.request("auth/token", formData, "post")
+    this.token = res.token
     let returnObj = {username: `${formData.username}`, token: res.token}
     return returnObj
+  }
+
+  static async getUser(username){
+    let res = await this.request(`users/${username}`)
+    console.log(res, "this is res in getUsers in api")
+    return res.user;
+  }
+
+  static async editUser(formData){
+    console.log(formData, "this is formdata in edituser")
+    let authRes = await this.loginUser({username: formData.username, password: formData.password})
+    console.log(authRes, "this is authres in edituser")
+    delete formData.username;
+    let res = await this.request(`users/${authRes.username}`, formData, "patch")
+    console.log(res, "this is res in editUser in the api")
   }
 
   // obviously, you'll add a lot here ...
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
 export default JoblyApi
