@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import CompanySearchBar from "./CompanySearchBar"
 // import "./Menu.css";
+import CompanyCard from "./CompanyCard"
 import JoblyApi from "./api";
 import {
   Card,
@@ -41,8 +42,8 @@ function CompaniesList({ itemsObject }) {
     }
 
   return (
-    <section className="col-md-4">
-      <Card>
+    <section className="col-md-10">
+      <Card style={{ width: '18rem' }}>
         <CardBody>
           <CardTitle className="font-weight-bold text-center">
             Food Menu
@@ -53,7 +54,7 @@ function CompaniesList({ itemsObject }) {
           <ListGroup>
             {companies.map(company => (
               <Link to={`/companies/${company.handle}`}>
-                <ListGroupItem>{company.name}</ListGroupItem>
+                <CompanyCard company={company}/>
               </Link>
             ))}
           </ListGroup>

@@ -14,7 +14,7 @@ import UserProfile from "./UserProfile"
 import UserContext from "./UserContext";
 
 
-function AppRoutes({register, login, logout, editProfile}) {
+function AppRoutes({register, login, logout, editProfile, apply}) {
 
     const user = useContext(UserContext)
     console.log(user, "this is user in approutes.js")
@@ -42,8 +42,8 @@ function AppRoutes({register, login, logout, editProfile}) {
         <Routes>
             <Route exact path="/" element={<Company />}/>
             <Route exact path="/companies" element={<CompaniesList />}/>
-            <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company />}/>
-            <Route path="/jobs" element={<JobsList />}/>
+            <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company apply={apply}/>}/>
+            <Route path="/jobs" element={<JobsList apply={apply}/>}/>
             <Route exact path="/logout" element={<Logout logout={logout}/>}/>
             <Route path="/profile" element={<UserProfile user={user} editProfile={editProfile}/>}/>
             <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>

@@ -79,17 +79,17 @@ class JoblyApi {
 
   static async getUser(username){
     let res = await this.request(`users/${username}`)
-    console.log(res, "this is res in getUsers in api")
     return res.user;
   }
 
   static async editUser(formData){
-    console.log(formData, "this is formdata in edituser")
     let authRes = await this.loginUser({username: formData.username, password: formData.password})
-    console.log(authRes, "this is authres in edituser")
     delete formData.username;
     let res = await this.request(`users/${authRes.username}`, formData, "patch")
-    console.log(res, "this is res in editUser in the api")
+  }
+
+  static async applyForJob(username, jobId){
+    let res = await this.request(`users/${username}/jobs/${jobId}`, undefined, "post")
   }
 
   // obviously, you'll add a lot here ...

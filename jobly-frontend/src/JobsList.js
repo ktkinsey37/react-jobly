@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { Link } from "react-router-dom";
 // import "./Menu.css";
+import JobCard from "./JobCard";
 import JoblyApi from "./api";
 import {
   Card,
@@ -10,24 +11,29 @@ import {
   ListGroup,
   ListGroupItem
 } from "reactstrap";
+import UserContext from "./UserContext";
 import JobSearchBar from "./JobSearchBar";
 
-function JobsList() {
+function JobsList({ apply }) {
 
     const [isLoading, setIsLoading] = useState(true);
     const [jobs, setJobs] = useState([]);
-    // const [jobs, setJob] = useState([]);
-  
-    // Gets the drinks and snacks on load and sets them in state
+    const [appliedJobs, setAppliedJobs] = useState([])
+    const [ranApplyFunc, setRanApplyFunc] = useState([false])
+    const user = useContext(UserContext)
+
     useEffect(() => {
       async function getJobs() {
+        console.log(user, "this is user in getjobs")
         let jobs = await JoblyApi.getAllJobs();
-        console.log(jobs, "THIS is jobs")
+        let {applications} = await JoblyApi.getUser(user.username)
+        setAppliedJobs(applications)
         setJobs(jobs)
         setIsLoading(false);
+        setRanApplyFunc(false)
       }
       getJobs()
-    }, []);
+    }, [ranApplyFunc]);
 
     async function searchJobs(title) {
         let res = await JoblyApi.getJobsQuery(title);
@@ -39,9 +45,9 @@ function JobsList() {
     }
 
   return (
-    <section className="col-md-4">
-      <Card>
-        <CardBody>
+    <section className="col-md-10">
+      <Card style={{ width: '18rem' }}>
+        <CardBody style={{ width: '18rem' }}>
           <CardTitle className="font-weight-bold text-center">
             Food Menu
           </CardTitle>
@@ -50,7 +56,7 @@ function JobsList() {
           </CardText>
           <ListGroup>
             {jobs.map(job => (
-                    <ListGroupItem>{job.title}</ListGroupItem>
+                    <JobCard job={job} apply={apply} appliedJobs={appliedJobs} ranApplyFunc={ranApplyFunc} setRanApplyFunc={setRanApplyFunc} />
             ))}
           </ListGroup>
         </CardBody>

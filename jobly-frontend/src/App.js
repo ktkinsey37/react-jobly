@@ -4,11 +4,13 @@ import AppRoutes from './AppRoutes';
 import React, { useState, useEffect, createContext } from "react";
 import UserContext from './UserContext';
 import useLocalStorage from './hooks/useLocalStorage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import { update } from '../../backend/models/user';
 
 
 function App() {
-  const [currUser, setCurrUser] = useLocalStorage("currUser", undefined);
+  const [currUser, setCurrUser] = useLocalStorage("currUser", [undefined]);
   const [currToken, setToken] = useLocalStorage("currToken", undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
@@ -49,9 +51,12 @@ async function logout(){
   localStorage.clear()
 }
 
+async function apply(currUsername, jobId){
+  let applied = await JoblyApi.applyForJob(currUsername, jobId)
+}
+
 async function editProfile(userData){
   let user = await JoblyApi.editUser(userData)
-  console.log(user, "this is user in app editprofile function")
 }
 
   return (
@@ -59,7 +64,7 @@ async function editProfile(userData){
     <div className="App">
       <header className="App-header">
 
-          <AppRoutes register={register} login={login} logout={logout} editProfile={editProfile} />
+          <AppRoutes register={register} login={login} logout={logout} editProfile={editProfile} apply={apply} />
       </header>
     </div>
     </UserContext.Provider>

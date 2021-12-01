@@ -21,6 +21,7 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
 
     useEffect(() => {
         async function getUser() {
+          console.log(user.username, "user.username in userprofile")
           let currUser = await JoblyApi.getUser(user.username);
           const INITIAL_STATE = {username: currUser.username, password: "", firstName: currUser.firstName, lastName: currUser.lastName, email: currUser.email };
           setFormData(INITIAL_STATE)
