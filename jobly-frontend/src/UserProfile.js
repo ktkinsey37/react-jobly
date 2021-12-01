@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {
     Card,
     CardBody,
@@ -7,10 +7,13 @@ import {
   } from "reactstrap";
 import JoblyApi from "./api";
 import { Redirect, useParams } from "react-router-dom";
+import UserContext from "./UserContext";
 
 
 
-function UserProfile({user, editProfile}) {
+function UserProfile({ editProfile}) {
+
+  const user = useContext(UserContext)
 
     const [isLoading, setIsLoading] = useState(true);
     console.log(user, "user as its passed to userprofile")
@@ -21,8 +24,9 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
 
     useEffect(() => {
         async function getUser() {
-          console.log(user.username, "user.username in userprofile")
+          console.log(user, "user.username in userprofile")
           let currUser = await JoblyApi.getUser(user.username);
+          console.log(currUser, "curruser in the userprofile geteffect")
           const INITIAL_STATE = {username: currUser.username, password: "", firstName: currUser.firstName, lastName: currUser.lastName, email: currUser.email };
           setFormData(INITIAL_STATE)
           setIsLoading(false);
@@ -51,14 +55,14 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
 
   
     // Gets the drinks and snacks on load and sets them in state
-    useEffect(() => {
-      async function getUser() {
-        let userProfile = await JoblyApi.getUser(user.username);
-        console.log(userProfile, "this is user in the useeffect on profile page")
-        setIsLoading(false);
-      }
-      getUser()
-    }, []);
+    // useEffect(() => {
+    //   async function getUser() {
+    //     let userProfile = await JoblyApi.getUser(user.username);
+    //     console.log(userProfile, "this is user in the useeffect on profile page")
+    //     setIsLoading(false);
+    //   }
+    //   getUser()
+    // }, []);
   
     if (isLoading) {
       return <p>Loading &hellip;</p>;

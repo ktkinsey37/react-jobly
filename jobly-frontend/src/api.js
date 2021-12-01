@@ -73,11 +73,13 @@ class JoblyApi {
   static async loginUser(formData){
     let res = await this.request("auth/token", formData, "post")
     this.token = res.token
+    console.log(res.user, "res.user in login")
     let returnObj = {username: `${formData.username}`, token: res.token}
     return returnObj
   }
 
   static async getUser(username){
+    console.log(this.token, username, "this is tokena nd uusername in getuser")
     let res = await this.request(`users/${username}`)
     return res.user;
   }

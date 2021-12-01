@@ -35,7 +35,7 @@ function App() {
 
   async function register(userData) {
     let user = await JoblyApi.registerUser(userData);
-    setCurrUser(user.username)
+    setCurrUser(user)
     setToken(user.token)
   }
 

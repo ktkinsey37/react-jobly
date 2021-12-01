@@ -45,7 +45,7 @@ function AppRoutes({register, login, logout, editProfile, apply}) {
             <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company apply={apply}/>}/>
             <Route path="/jobs" element={<JobsList apply={apply}/>}/>
             <Route exact path="/logout" element={<Logout logout={logout}/>}/>
-            <Route path="/profile" element={<UserProfile user={user} editProfile={editProfile}/>}/>
+            <Route path="/profile" element={<UserProfile editProfile={editProfile}/>}/>
             <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>
         </Routes>
         </main>
