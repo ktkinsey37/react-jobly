@@ -9,4 +9,10 @@
   
   .CompanyCard img {
     width: 50px;
+    object-position: right top;
   }
+
+  a:link {
+    text-decoration: none;
+    color: black
+}

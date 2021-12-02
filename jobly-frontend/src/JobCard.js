@@ -47,8 +47,8 @@ function JobCard({ job, apply, appliedJobs, ranApplyFunc, setRanApplyFunc }) {
     if (appliedJobs.includes(job.id) == true){
         return(
         <section className="col-md-4" className="JobCard">
-        <Card style={{ width: '18rem' }}>
-          <CardBody>
+        <Card>
+          <CardBody className="col-md-12 ">
             <CardTitle className="font-weight-bold text-center">
               <h3>{job.title}</h3>
             </CardTitle>
@@ -57,9 +57,8 @@ function JobCard({ job, apply, appliedJobs, ranApplyFunc, setRanApplyFunc }) {
                 Salary: {job.salary}
                 <br/>
                 Equity: {job.equity}
-            </CardText>
-            <button className="btn btn-danger font-weight-bold text-uppercase float-right disabled" >Applied</button>
-            
+                <button className="btn button btn-danger font-weight-bold text-uppercase float-right disabled" >Applied</button>
+            </CardText>            
           </CardBody>
         </Card>
       </section>)
@@ -67,8 +66,8 @@ function JobCard({ job, apply, appliedJobs, ranApplyFunc, setRanApplyFunc }) {
   
     return (
       <section className="col-md-4" className="JobCard">
-        <Card style={{ width: '18rem' }}>
-          <CardBody>
+        <Card>
+          <CardBody className="col-md-12 ">
             <CardTitle className="font-weight-bold text-center">
               <h3>{job.title}</h3>
             </CardTitle>
@@ -77,10 +76,11 @@ function JobCard({ job, apply, appliedJobs, ranApplyFunc, setRanApplyFunc }) {
                 Salary: {job.salary}
                 <br/>
                 Equity: {job.equity}
-            </CardText>
-            <button className="btn btn-danger font-weight-bold text-uppercase float-right" onClick={handleClick}>Apply</button>
-            
+                <button className="button btn btn-danger font-weight-bold text-uppercase float-right" onClick={handleClick}>Apply</button>
+
+            </CardText>            
           </CardBody>
+          
         </Card>
       </section>
     );

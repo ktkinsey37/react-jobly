@@ -43,7 +43,7 @@ const NewToDoForm = ({ search }) => {
         placeholder="Add New Todo"
       />
 
-      <button>Add a new ToDo!</button>
+      <button>Search</button>
     </form>
   );
 };

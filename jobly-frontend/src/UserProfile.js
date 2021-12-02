@@ -40,7 +40,6 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
     setFormData(INITIAL_STATE);
   };
 
-  /** Update local state w/curr state of input elem */
 
   const handleChange = evt => {
     const { name, value }= evt.target;
@@ -49,26 +48,13 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
       [name]: value
     }));
   };
-
-
-
-
-  
-    // Gets the drinks and snacks on load and sets them in state
-    // useEffect(() => {
-    //   async function getUser() {
-    //     let userProfile = await JoblyApi.getUser(user.username);
-    //     console.log(userProfile, "this is user in the useeffect on profile page")
-    //     setIsLoading(false);
-    //   }
-    //   getUser()
-    // }, []);
   
     if (isLoading) {
       return <p>Loading &hellip;</p>;
     }
   
     return (
+      <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
         <form onSubmit={handleSubmit}>
           <label >Username:</label>
           {user.username}
@@ -113,8 +99,9 @@ let INITIAL_STATE = {username: user.username, password: "", firstName: user.firs
           />
           <br/>
     
-          <button>Confirm changes</button>
+          <button >Confirm changes</button>
         </form>
+        </div>
       );
   }
   

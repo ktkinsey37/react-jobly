@@ -25,7 +25,7 @@ function AppRoutes({register, login, logout, editProfile, apply}) {
             <NavBar />
             <main>
             <Routes>
-                <Route exact path="/" element={<Company />}/>
+                <Route exact path="/" element={<HomePage />}/>
                 <Route exact path="/login" element={<LoginForm login={login}/>}/>
                 <Route path="/register" element={<RegistrationForm register={register}/>}/>
                 <Route element={<p>Hmmm. I can't seem to find what you want.</p>}/>
@@ -40,7 +40,7 @@ function AppRoutes({register, login, logout, editProfile, apply}) {
         <NavBar />
         <main>
         <Routes>
-            <Route exact path="/" element={<Company />}/>
+            <Route exact path="/" element={<HomePage user={user} />}/>
             <Route exact path="/companies" element={<CompaniesList />}/>
             <Route exact path="/companies/:companySlug" cantFind="/companies" element={<Company apply={apply}/>}/>
             <Route path="/jobs" element={<JobsList apply={apply}/>}/>

@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
 import { Link } from "react-router-dom";
-// import "./Menu.css";
 import JobCard from "./JobCard";
 import JoblyApi from "./api";
 import {
@@ -45,11 +44,13 @@ function JobsList({ apply }) {
     }
 
   return (
+    <div className="col-md-12 offset-md-4">
+    <br/>
     <section className="col-md-10">
-      <Card style={{ width: '18rem' }}>
-        <CardBody style={{ width: '18rem' }}>
+      <Card style={{ width: '30rem' }}>
+        <CardBody className="col-md-12 ">
           <CardTitle className="font-weight-bold text-center">
-            Food Menu
+            <h2>Jobs</h2>
           </CardTitle>
           <CardText>
             <JobSearchBar searchJobs={searchJobs}/>
@@ -62,6 +63,7 @@ function JobsList({ apply }) {
         </CardBody>
       </Card>
     </section>
+    </div>
   );
 }
 

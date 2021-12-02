@@ -42,17 +42,18 @@ function CompanyCard({ company }) {
     }
   
     return (
-      <section className="col-md-4" className="CompanyCard">
-        <Card style={{ width: '18rem' }}>
-          <CardBody>
+      <section className="col-md-12" className="CompanyCard">
+        <Card>
+          <CardBody className="col-md-12 ">
+          <img src={logoUrl} className="position-absolute top-5 end-5 float-right ml-5"/>
+
             <CardTitle className="font-weight-bold text-center">
-              {company.name}
+              <b>{company.name}</b>
               <br/>
             </CardTitle>
             <CardText>
               {company.description}
             </CardText>
-            <img src={logoUrl} className="float-right ml-5"/>
           </CardBody>
         </Card>
       </section>
